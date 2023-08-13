@@ -13,7 +13,7 @@ interface Props {
 
 export default function RootLayout(props: Props) {
   return (
-    <html lang="en">
+    <html lang="fa" dir="rtl">
       <body>
         <Providers>
           <AppBar />

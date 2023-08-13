@@ -30,7 +30,7 @@ model TariffPrice {
   year            Int
   tariff          Tariff @relation(fields: [tariffId], references: [id])
   generalPrice    Int
-  SpecialistPrice Int
+  specialistPrice Int
 
   @@id([tariffId, year])
 }

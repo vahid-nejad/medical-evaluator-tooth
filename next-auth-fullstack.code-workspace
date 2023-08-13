@@ -9,7 +9,7 @@
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "prettier.printWidth": 100,
     "window.zoomLevel": 1,
-    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrap": "on",
     "editor.fontSize": 16
   }
 }

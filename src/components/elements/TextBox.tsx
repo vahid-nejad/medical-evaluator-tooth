@@ -13,10 +13,10 @@ export const TextBox = React.forwardRef<HTMLInputElement, IProps>(
     ref
   ) => {
     return (
-      <div className={className}>
+      <div dir="rtl" className={className}>
         {lableText && (
           <label
-            className={`block text-slate-600  mb-2 text-xs lg:text-sm xl:text-base `}
+            className={`block text-slate-600 text-right mb-2 text-xs lg:text-sm xl:text-base `}
             htmlFor="txt"
           >
             {lableText}

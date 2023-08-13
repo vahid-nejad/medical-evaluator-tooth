@@ -8,20 +8,17 @@ const SigninButton = () => {
 
   if (session && session.user) {
     return (
-      <div className="flex gap-4 ml-auto">
+      <div className="flex gap-4 mr-auto">
         <p className="text-sky-600">{session.user.name}</p>
         <button onClick={() => signOut()} className="text-red-600">
-          Sign Out
+          خروج از سیسنم
         </button>
       </div>
     );
   }
   return (
-    <Link
-      className="transition-colors hover:text-blue-500 text-green-500 ml-auto"
-      href={"/signIn"}
-    >
-      Sign In
+    <Link className="transition-colors hover:text-blue-500 text-green-500 ml-auto" href={"/signIn"}>
+      ورود به سیستم
     </Link>
   );
 };
