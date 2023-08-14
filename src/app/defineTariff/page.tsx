@@ -20,17 +20,22 @@ const DefineTariffPage = () => {
     handleSubmit,
     watch,
     control,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { tariffPrices } = useTariffPriceContext();
+  const { tariffPrices, resetPrices } = useTariffPriceContext();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const tariffAndPrice: TariffAndPrice = {
       ...data,
       prices: tariffPrices,
     };
-    insertNewTariff(tariffAndPrice);
+    const res = await insertNewTariff(tariffAndPrice);
+    if (res) {
+      resetPrices();
+      reset();
+    }
   };
   return (
     <>

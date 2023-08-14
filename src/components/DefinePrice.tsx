@@ -51,7 +51,7 @@ const DefinePrice = (props: Props) => {
                 {...field}
                 labelText="سال"
                 separator={false}
-                // initialvalue={1402}
+                initialvalue={1402}
                 error={errors.year && (errors.year.message ? errors.year.message : ERROR_MESSAGE)}
               />
             )}

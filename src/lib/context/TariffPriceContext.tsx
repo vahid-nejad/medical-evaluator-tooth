@@ -13,6 +13,7 @@ type TariffPriceContextType = {
 
   addTariffPrice: (tariff: TariffPrice) => void;
   removeTariffPrice: (year: number) => void;
+  resetPrices: () => void;
 };
 
 const TariffPriceContext = createContext<TariffPriceContextType | null>(null);
@@ -32,9 +33,11 @@ const TariffPriceProvider = ({ children }: Props) => {
     setTariffPrices([...newTariffPrices]);
   };
 
+  const resetPrices = () => setTariffPrices([]);
+
   return (
     <TariffPriceContext.Provider
-      value={{ tariffPrices: tariffPrices, addTariffPrice, removeTariffPrice }}
+      value={{ tariffPrices: tariffPrices, addTariffPrice, removeTariffPrice, resetPrices }}
     >
       {children}
     </TariffPriceContext.Provider>

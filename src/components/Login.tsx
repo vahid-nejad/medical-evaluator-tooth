@@ -1,10 +1,11 @@
 "use client";
 import React, { FormEventHandler, useRef } from "react";
 import { Button } from "./Button";
-import InputBox from "./InputBox";
+
 import Link from "next/link";
 
 import { signIn } from "next-auth/react";
+import { TextBox } from "./elements";
 
 interface Props {
   className?: string;
@@ -34,17 +35,14 @@ const Login = (props: Props) => {
       <div className="bg-gradient-to-b from-slate-50 to-slate-200 p-2 text-center text-slate-600">
         Login Form
       </div>
-      <p {...(props.messageType &&{className:(
-        props.messageType==="error"?
-        
-      ))} >{props.message}</p>
+      <p>{props.message}</p>
       <form onSubmit={loginRequest} className="p-2 flex flex-col gap-3">
-        <InputBox
+        <TextBox
           name="username"
           labelText="User Name"
           onChange={(e) => (userName.current = e.target.value)}
         />
-        <InputBox
+        <TextBox
           name="password"
           type="password"
           labelText="Password"
