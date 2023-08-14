@@ -2,7 +2,7 @@ import { TariffPrice } from "@prisma/client";
 import React from "react";
 import { ConfirmButtons, Form, FormHeader, Modal, NumberInput } from "./elements";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
-import { useTariffPriceContext } from "@/lib/context/TariffPriceContext";
+import { YearDuplicatedError, useTariffPriceContext } from "@/lib/context/TariffPriceContext";
 type Props = {
   show: boolean;
   onClose: () => void;
@@ -18,14 +18,23 @@ const DefinePrice = (props: Props) => {
     handleSubmit,
     watch,
     control,
+    setError,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
   const { addTariffPrice } = useTariffPriceContext();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    addTariffPrice(data);
-    props.onClose();
+    console.log({ data });
+
+    try {
+      addTariffPrice(data);
+      reset();
+      props.onClose();
+    } catch (YearDuplicatedError) {
+      setError("year", { message: "سال تکراری است" });
+    }
   };
 
   return (
@@ -36,12 +45,14 @@ const DefinePrice = (props: Props) => {
           <Controller
             name="year"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: true, min: 1400 }}
             render={({ field }) => (
               <NumberInput
                 {...field}
                 labelText="سال"
-                error={errors.generalPrice && ERROR_MESSAGE}
+                separator={false}
+                // initialvalue={1402}
+                error={errors.year && (errors.year.message ? errors.year.message : ERROR_MESSAGE)}
               />
             )}
           />
@@ -69,7 +80,7 @@ const DefinePrice = (props: Props) => {
               />
             )}
           />
-          <ConfirmButtons submit className="md:col-span-3" />
+          <ConfirmButtons submit className="md:col-span-3" onCancel={props.onClose} />
         </div>
       </Form>
     </Modal>

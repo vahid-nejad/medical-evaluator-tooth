@@ -4,9 +4,12 @@ import { useTariffPriceContext } from "@/lib/context/TariffPriceContext";
 import { TariffPrice } from "@prisma/client";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-type ItemsType = Omit<TariffPrice, "tariffId"> & {
+type ItemsType = Omit<TariffPrice, "tariffId" | "generalPrice" | "specialistPrice"> & {
   radif: number;
   action: ReactElement;
+  generalPrice: string;
+  specialistPrice: string;
+  id: number;
 };
 
 const headers: DataTableHeader<ItemsType>[] = [
@@ -39,9 +42,10 @@ const TariffPriceList = () => {
     () =>
       tariffPrices.map(
         (tariffPrice, index): ItemsType => ({
+          id: tariffPrice.year,
           radif: index + 1,
-          generalPrice: tariffPrice.generalPrice,
-          specialistPrice: tariffPrice.specialistPrice,
+          generalPrice: tariffPrice.generalPrice.toLocaleString(),
+          specialistPrice: tariffPrice.specialistPrice.toLocaleString(),
           year: tariffPrice.year,
           action: (
             <Button variant="outline-danger" onClick={() => removeTariffPrice(tariffPrice.year)}>

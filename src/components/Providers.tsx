@@ -12,7 +12,7 @@ const Providers = ({ children }: Props) => {
   return (
     <SessionProvider>
       <TariffProvider>
-        <TariffPriceProvider>{children}</TariffPriceProvider>;
+        <TariffPriceProvider>{children}</TariffPriceProvider>
       </TariffProvider>
     </SessionProvider>
   );

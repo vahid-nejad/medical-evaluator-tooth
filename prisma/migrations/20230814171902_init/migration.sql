@@ -19,7 +19,7 @@ CREATE TABLE "TariffPrice" (
     "tariffId" INTEGER NOT NULL,
     "year" INTEGER NOT NULL,
     "generalPrice" INTEGER NOT NULL,
-    "SpecialistPrice" INTEGER NOT NULL,
+    "specialistPrice" INTEGER NOT NULL,
 
     PRIMARY KEY ("tariffId", "year"),
     CONSTRAINT "TariffPrice_tariffId_fkey" FOREIGN KEY ("tariffId") REFERENCES "Tariff" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

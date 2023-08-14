@@ -6,11 +6,12 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Tariff } from "@prisma/client";
 import clsx from "clsx";
 import { findTariffs, searchTariffs } from "@/lib/actions/tariff";
-import { TariffAndPrice } from "@/lib/context/TariffContex";
+import { TariffAndPrice } from "@/lib/context/TariffContext";
 
 type Props = {
   onChange: (tariff: TariffAndPrice) => void;
   value?: Tariff;
+  year: number;
 };
 
 const TarrifFinder = (props: Props) => {
@@ -22,9 +23,11 @@ const TarrifFinder = (props: Props) => {
     setTariffs(await searchTariffs(title.current));
   };
   const selectTariff = async (tariff: Tariff) => {
+    console.log(props.year);
+
     setTariffs([]);
     setSelectedTariff(tariff);
-    const tariffAndPrice = await findTariffs(tariff.id, 1402);
+    const tariffAndPrice = await findTariffs(tariff.id, props.year);
     if (tariffAndPrice) props.onChange(tariffAndPrice);
   };
 
@@ -38,7 +41,7 @@ const TarrifFinder = (props: Props) => {
         </TextBox>
         <TariffList tariffs={tariffs} onSelect={selectTariff} />
       </div>
-      <TextBox labelText="کد" value={selectedTariff?.code} />
+      <TextBox readOnly labelText="کد" value={selectedTariff?.code} />
     </>
   );
 };
@@ -58,7 +61,9 @@ const TariffList = (props: TariffListProps) => {
       )}
     >
       {props.tariffs &&
-        props.tariffs.map((tariff) => <TariffElement tariff={tariff} onSelect={props.onSelect} />)}
+        props.tariffs.map((tariff) => (
+          <TariffElement key={tariff.id} tariff={tariff} onSelect={props.onSelect} />
+        ))}
     </div>
   );
 };
